@@ -57,6 +57,7 @@ public class XMLController {
         modelAndView.addObject("message", result);
 		return modelAndView;
     }
+	
 	//Tampering Data from xml into Database
 	@RequestMapping(value = "/Push", method = RequestMethod.GET)
 	public ModelAndView insertion(@RequestParam("dataBase") String dataBase,@RequestParam("name") String login,@RequestParam("password") String password) throws JAXBException,SQLException{
