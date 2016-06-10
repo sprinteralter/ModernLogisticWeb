@@ -2,8 +2,8 @@ package com.rosteach.entities;
 
 import javax.persistence.Entity;
 
-@Entity
-public class NovusRequest {
+
+public class NovusXML_insert {
 	//EPRORDERSOUTINV_INSERT
 	
 		private java.sql.Date DOCDATE;

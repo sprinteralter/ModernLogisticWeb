@@ -110,7 +110,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "head"
 })
 @XmlRootElement(name = "DESADV")
-public class Novus {
+public class NovusXML {
 
     @XmlElement(name = "NUMBER")
     protected long number;
@@ -139,7 +139,7 @@ public class Novus {
     @XmlElement(name = "CAMPAIGNNUMBER")
     protected long campaignnumber;
     @XmlElement(name = "HEAD", required = true)
-    protected Novus.HEAD head;
+    protected NovusXML.HEAD head;
 
     /**
      * Gets the value of the number property.
@@ -354,10 +354,10 @@ public class Novus {
      * 
      * @return
      *     possible object is
-     *     {@link Novus.HEAD }
+     *     {@link NovusXML.HEAD }
      *     
      */
-    public Novus.HEAD getHEAD() {
+    public NovusXML.HEAD getHEAD() {
         return head;
     }
 
@@ -366,10 +366,10 @@ public class Novus {
      * 
      * @param value
      *     allowed object is
-     *     {@link Novus.HEAD }
+     *     {@link NovusXML.HEAD }
      *     
      */
-    public void setHEAD(Novus.HEAD value) {
+    public void setHEAD(NovusXML.HEAD value) {
         this.head = value;
     }
 
@@ -453,7 +453,7 @@ public class Novus {
         @XmlElement(name = "EDIINTERCHANGEID")
         protected long ediinterchangeid;
         @XmlElement(name = "PACKINGSEQUENCE", required = true)
-        protected Novus.HEAD.PACKINGSEQUENCE packingsequence;
+        protected NovusXML.HEAD.PACKINGSEQUENCE packingsequence;
 
         /**
          * Gets the value of the supplier property.
@@ -556,10 +556,10 @@ public class Novus {
          * 
          * @return
          *     possible object is
-         *     {@link Novus.HEAD.PACKINGSEQUENCE }
+         *     {@link NovusXML.HEAD.PACKINGSEQUENCE }
          *     
          */
-        public Novus.HEAD.PACKINGSEQUENCE getPACKINGSEQUENCE() {
+        public NovusXML.HEAD.PACKINGSEQUENCE getPACKINGSEQUENCE() {
             return packingsequence;
         }
 
@@ -568,10 +568,10 @@ public class Novus {
          * 
          * @param value
          *     allowed object is
-         *     {@link Novus.HEAD.PACKINGSEQUENCE }
+         *     {@link NovusXML.HEAD.PACKINGSEQUENCE }
          *     
          */
-        public void setPACKINGSEQUENCE(Novus.HEAD.PACKINGSEQUENCE value) {
+        public void setPACKINGSEQUENCE(NovusXML.HEAD.PACKINGSEQUENCE value) {
             this.packingsequence = value;
         }
 
@@ -624,7 +624,7 @@ public class Novus {
             @XmlElement(name = "HIERARCHICALID")
             protected byte hierarchicalid;
             @XmlElement(name = "POSITION")
-            protected List<Novus.HEAD.PACKINGSEQUENCE.POSITION> position;
+            protected List<NovusXML.HEAD.PACKINGSEQUENCE.POSITION> position;
 
             /**
              * Gets the value of the hierarchicalid property.
@@ -660,13 +660,13 @@ public class Novus {
              * 
              * <p>
              * Objects of the following type(s) are allowed in the list
-             * {@link Novus.HEAD.PACKINGSEQUENCE.POSITION }
+             * {@link NovusXML.HEAD.PACKINGSEQUENCE.POSITION }
              * 
              * 
              */
-            public List<Novus.HEAD.PACKINGSEQUENCE.POSITION> getPOSITION() {
+            public List<NovusXML.HEAD.PACKINGSEQUENCE.POSITION> getPOSITION() {
                 if (position == null) {
-                    position = new ArrayList<Novus.HEAD.PACKINGSEQUENCE.POSITION>();
+                    position = new ArrayList<NovusXML.HEAD.PACKINGSEQUENCE.POSITION>();
                 }
                 return this.position;
             }
