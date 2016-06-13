@@ -32,7 +32,7 @@ public class HomeController {
 		date.getTime();
 		logger.info("Home page downloaded with success!  Server date & time is: {}.",date);	
 		
-		 String s = n.test();
+		// String s = n.test();
 		
 		return "home";
 	}
