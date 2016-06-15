@@ -9,20 +9,21 @@ body{
 	text-align: center;
 	text-transform: uppercase;
     background: -webkit-linear-gradient(top, silver, #FFFFFF);
+    display: flex;
     box-sizing: border-box;
 }
 #header .leftIcons{
     width:30%;
-    height: 100%;
     float: left;
 }
 #header h1{
-    height: 100%;
     width: 40%;
     margin: 0;
+    display: table-cell;
+    vertical-align: middle;
+    margin: auto;
     float:left;
 }
-
 #header .leftIcons img{
     width: 2em;
     height: auto;
@@ -31,7 +32,6 @@ body{
 }
 #header .rightIcons{
     width:30%;
-    height: 100%;
     float: left;
 }
 #header .rightIcons img{
@@ -47,6 +47,8 @@ body{
     background: url("../images/mainbackground.jpg") 50% 50% no-repeat;
     background-size: 70% 100%;
     box-sizing: border-box;
+    border-bottom: 0.5px solid silver;
+    border-top: 0.5px solid silver;
 }
 #content .firstline, .secondline{
     height: 50%;
@@ -55,7 +57,7 @@ body{
 }
 #content .firstline .item, .secondline .item{
     display: inline-block;
-    width: 10%;
+    width: 9%;
     height:50%;
     margin: 5%;
     border: 1px solid grey;
@@ -87,6 +89,6 @@ body{
 /*footer*/
 #footer{
 	height: 10%;
-    background: -webkit-linear-gradient(top, #FFFFFF, #5EB9FF);
+    background: -webkit-linear-gradient(top, #FFFFFF, silver);
     box-sizing: border-box;
 }

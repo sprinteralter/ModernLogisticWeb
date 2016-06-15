@@ -194,7 +194,7 @@ body{
     text-align: center;
     text-transform: uppercase;
     color:dimgray;
-     border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
 }
 .ui-tabs .ui-tabs-panel .leftTA textarea,
 .ui-tabs .ui-tabs-panel .rightTA textarea{
@@ -206,55 +206,118 @@ body{
     border-radius: 10px 10px 0 0;
 }
 /*--------FORMS--------*/
+.ui-tabs .ui-tabs-panel .leftTA #leftTADataSection{
+    margin:0;
+    height: 20%;
+}
 .ui-tabs .ui-tabs-panel .leftTA form{
-    margin: 0;
-    padding: 0;
+    margin: 1%;
+ 	border:0.15em dotted #dddddd; 
+ 	border-radius: 10px; 
+	padding: 15px;
     text-align: center;
-    width:100%;
-    height:20%;
+    box-sizing: border-box;
+}
+.ui-tabs .ui-tabs-panel .leftTA form .upload{
+    margin: 0;
+    padding: 1.5%;
     border-radius: 10px 10px 10px 10px;
+    cursor:pointer;
+    border: 1px solid #dddddd;
+	background: #e9e9e9;
+    color: #452E13;
+    box-sizing: border-box;
 }
-.ui-tabs .ui-tabs-panel .leftTA form input{
-    margin-top: 5%;
-     border: 0.5px solid #dddddd;
-    border-radius: 5px 5px 5px 5px;
-    font-style: oblique;
-    height: 30%;
+.ui-tabs .ui-tabs-panel .leftTA form .upload:hover {
+    background: #FF9412;
+    color: white;
 }
-.ui-tabs .ui-tabs-panel .leftTA .pushButtLeft,
+.ui-tabs .ui-tabs-panel .leftTA form .files{
+    margin: 0;
+    padding: 1.5%;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.ui-tabs .ui-tabs-panel .leftTA #progress {
+	display:none;
+	position: relative;
+    margin: 0;
+    width:100%; 
+	border: 1px solid #ddd; 
+	border-radius: 3px;
+    box-sizing: border-box;
+}
+.ui-tabs .ui-tabs-panel .leftTA #bar {
+	background: #FF9412; 
+	width:0%; 
+	height:4%;
+    border: 1px solid #ddd;
+	border-radius: 3px; 
+    box-sizing: border-box;
+}
+.ui-tabs .ui-tabs-panel .leftTA #percent { 
+    position:absolute;
+    top:0;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+.ui-tabs .ui-tabs-panel .rightTA #rightTADataSection{
+    margin:0;
+    height: 20%;
+}
 .ui-tabs .rightTA .pushButtRight{
     text-align: center;
     border-radius: 10px 10px 10px 10px;
 }
-.ui-tabs .ui-tabs-panel .leftTA .uplFile,
 .ui-tabs .ui-tabs-panel .rightTA .push{
-    margin: auto;
-    width:auto;
-    height:auto;
+    margin: 0;
+    padding: 1.5%;
     border-radius: 10px 10px 10px 10px;
-    background: #E6E3DC;
-    border:none;
+    cursor:pointer;
+    border: 1px solid #dddddd;
+	background: #e9e9e9;
+    color: #452E13;
+    box-sizing: border-box;
 }
-.ui-tabs .ui-tabs-panel .leftTA .uplFile img,
-.ui-tabs .ui-tabs-panel .rightTA .push img
-{
-    width: auto;
-    height: 2em;
-    vertical-align: middle;
+.ui-tabs .ui-tabs-panel .rightTA .push:hover{
+    background: #1CD6B1;
+    color: white;
+}
+.ui-tabs .ui-tabs-panel .rightTA #progressInsertion {
+	display:none;
+	position: relative;
+    width:100%; 
+	border: 1px solid #ddd; 
+	border-radius: 3px;
+    box-sizing: border-box;
+}
+.ui-tabs .ui-tabs-panel .rightTA #barInsertion {
+	background: #1CD6B1; 
+	width:0%; 
+	height:4%;
+    border: 1px solid #ddd;
+	border-radius: 3px; 
+    box-sizing: border-box;
+}
+.ui-tabs .ui-tabs-panel .rightTA #percentInsertion { 
+    position:absolute;
+    top:0;
+    width: 100%;
+    margin: auto;
+    text-align: center;
 }
 .ui-tabs .ui-tabs-panel .rightTA form{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 20%;
-    border-radius: 10px 10px 10px 10px;
+    margin: 1%;
+ 	padding: 1% 0;
+    border:0.15em dotted #dddddd; 
+ 	border-radius: 10px; 
     text-align: center;
+    box-sizing: border-box;
 }
 .ui-tabs .ui-tabs-panel .rightTA form input,
 .ui-tabs .ui-tabs-panel .rightTA form select{
-    margin-top: 5%;
     width: 30%;
-    height: 30%;
     border: 0.5px solid #dddddd;
     border-radius: 5px 5px 5px 5px;
     font-style: oblique;
@@ -302,7 +365,8 @@ body{
     text-align:center;
     border-radius:10px 10px 10px 10px;
 }
-.ui-tabs #applymessage{
+.ui-tabs #applymessage,
+.ui-tabs #accessmessage{
 	width: 400px;
     height: 200px;
     background: -webkit-linear-gradient(#8FFFAB, whitesmoke);
@@ -326,24 +390,50 @@ body{
 	margin-top:10px;
 	margin-left: 20px;
 }
-.ui-tabs #errormessage .errMess, .ui-tabs #applymessage .applMess{
+.ui-tabs #errormessage .errMess,
+.ui-tabs #applymessage .applMess,
+.ui-tabs #accessmessage .accMess{
 	margin-top:60px;
 }
 .ui-tabs #overlay{
-    z-index:3; /* РїoРґР»oР¶Рєa РґoР»Р¶РЅa Р±С‹С‚СЊ РІС‹С€Рµ СЃР»oРµРІ СЌР»РµРјРµРЅС‚oРІ СЃaР№С‚a, РЅo РЅРёР¶Рµ СЃР»oСЏ РјoРґaР»СЊРЅoРіo oРєРЅa */
-	position:fixed; /* РІСЃРµРіРґa РїРµСЂРµРєСЂС‹РІaРµС‚ РІРµСЃСЊ СЃaР№С‚ */
-	background-color:#000; /* С‡РµСЂРЅaСЏ */
-	opacity:0.6; /* РЅo РЅРµРјРЅoРіo РїСЂoР·СЂaС‡РЅa */
+    z-index:3; /* пoдлoжкa дoлжнa быть выше слoев элементoв сaйтa, нo ниже слoя мoдaльнoгo oкнa */
+	position:fixed; /* всегдa перекрывaет весь сaйт */
+	background-color:#000; /* чернaя */
+	opacity:0.6; /* нo немнoгo прoзрaчнa */
     filter: alpha(opacity=60);
 	width:100%; 
-	height:100%; /* СЂaР·РјРµСЂoРј РІo РІРµСЃСЊ СЌРєСЂaРЅ */
-    top:0; /* СЃРІРµСЂС…Сѓ Рё СЃР»РµРІa 0, oР±СЏР·aС‚РµР»СЊРЅС‹Рµ СЃРІoР№СЃС‚РІa! */
+	height:100%; /* рaзмерoм вo весь экрaн */
+    top:0; /* сверху и слевa 0, oбязaтельные свoйствa! */
 	left:0;
 	cursor:pointer;
-	display:none; /* РІ oР±С‹С‡РЅoРј СЃoСЃС‚oСЏРЅРёРё РµС‘ РЅРµС‚) */
+	display:none; /* в oбычнoм сoстoянии её нет) */
+}
+/*css all hover effects*/
+.back img:hover,
+.info img:hover,
+.home img:hover
+{
+	-webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.ui-tabs .ui-tabs-panel .leftTA:hover{
+	border-color: #FF9412;
+}
+.ui-tabs .ui-tabs-panel .rightTA:hover{
+	border-color: #1CD6B1;
+}
+.ui-tabs .ui-tabs-panel .buttons:hover{
+	border-color: #8a2820;
+}
+/*delegation*/
+#delegation{
+	display:none;
 }
 /*footer*/
 #footer{
+	margin: 0;
+    padding: 0;
 	height: 10%;
     text-align: center;
     background: -webkit-linear-gradient(top, whitesmoke, #ADD8E6);
@@ -351,8 +441,17 @@ body{
     border-radius: 0 0 5px 5px;
     box-sizing: border-box;
 }
-#footer h1{
+#footer:before{
+    content: "";
+    display: inline-block;
+    min-height: inherit;
+    height: 100%;
+    vertical-align: middle;
+}
+#footer h3{
     margin: 0;
+    display: inline-block;
+    vertical-align: middle;
     border-radius: 5px 5px 0 0;
 }
 /* End of my code
