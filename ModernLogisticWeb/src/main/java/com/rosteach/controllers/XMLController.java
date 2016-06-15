@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javax.xml.bind.JAXBException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.rosteach.DAO.InsertionDocInvoice;
+import com.rosteach.DAO.novus.NovusDAO;
 import com.rosteach.upload.FilesUploader;
 import com.rosteach.validators.FilesValidator;
 
 @Controller
 public class XMLController {
 
+	@Autowired
+	NovusDAO novus;
+	
+	
 	@RequestMapping(value = "/XML", method = RequestMethod.GET)
 	public String xml() {
 		return "XML";
