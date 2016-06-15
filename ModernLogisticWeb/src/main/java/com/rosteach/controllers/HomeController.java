@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.rosteach.DAO.NovusDAO;
+import com.rosteach.DAO.novus.NovusDAO;
 
 /**
  * Handles requests for the application home page.
