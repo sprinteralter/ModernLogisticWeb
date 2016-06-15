@@ -92,4 +92,71 @@ public class XMLController {
 		String result = new InsertionDocInvoice().getDate();
 		return result;
 	}
+	
+	//---NOVUS TAB -------------------------------------------------------------------------------------------------
+	
+	
+	
+		@RequestMapping(value = "/uploadNovus", method=RequestMethod.POST)
+		@ResponseBody 
+		public ModelAndView uploadNovus(@RequestParam("file[]") MultipartFile [] file){
+			ModelAndView modelAndView = new ModelAndView();
+			String result = "";
+			
+			//checking and saving file block
+			FilesUploader files = new FilesUploader("user_name");
+			FilesValidator validator = new FilesValidator();
+			//validate all parameters
+			
+			File directory = validator.checkDirectory(files.getDirectory());
+			validator.scanForFile(files.getRootPath()+"");
+			
+			if(validator.checkType(file)==true){
+				result = files.saveFiles(file,directory);
+			}
+			else {
+				result = "Invalid type of file or files!!";
+			}
+			//redirect to our page with result 
+			RedirectView redirectView = new RedirectView("XML");
+	        redirectView.setStatusCode(HttpStatus.FOUND);
+	        modelAndView.setView(redirectView);
+	        modelAndView.addObject("message", result);
+			return modelAndView; 
+	    }
+		
+		
+		@RequestMapping(value = "/PushNovus", method = RequestMethod.GET)
+		public ModelAndView insertionNovus(
+				@RequestParam("dataBase") String dataBase, 
+				@RequestParam("name") String login, 
+				@RequestParam("password") String password) throws JAXBException,SQLException{
+			
+			String db = dataBase;
+			String user = login;
+			String pass = password;
+			String path="C:/MLW/XMLDOC/user_name";
+			
+			if(db.equals("alter_ros")){
+				db="jdbc:firebirdsql:192.168.20.85/3050:alter_ros";
+			} else if(dataBase.equals("Alter")){
+				db="jdbc:firebirdsql:192.168.20.17/3050:alter";
+			} else if(dataBase.equals("alter_curent")){
+				db="jdbc:firebirdsql:192.168.20.13/3050:alter_curent";
+			}	
+			
+			novus.Insert(db, login, password, path);
+			
+			
+			
+			ModelAndView modelAndView = new ModelAndView();
+			String result = "";
+			
+				RedirectView redirectView = new RedirectView("XML");
+				redirectView.setStatusCode(HttpStatus.FOUND);
+				modelAndView.setView(redirectView);
+				modelAndView.addObject("message", result);
+			return modelAndView;
+		}
+		
 }
