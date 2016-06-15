@@ -20,6 +20,12 @@ public class FilesUploader {
 	public FilesUploader(){		
 	}
 	
+	public FilesUploader(String name){	
+		rootPath = rootPath+name+"/";
+		directory = new File(rootPath);
+		System.out.println(rootPath);
+	}
+	
 	public String getFileName() {
 		return fileName;
 	}
