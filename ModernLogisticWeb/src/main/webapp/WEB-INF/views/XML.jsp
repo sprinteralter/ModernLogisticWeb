@@ -40,6 +40,23 @@
             </div>
         </div>
     </div>
+    <div id="loader">
+	        <img src="resources/images/cloud_loading_256.gif" alt="Loader" width=150px height=150px;/>
+	</div>
+	    <div id="errormessage">
+	       	<p class="errMess"></p>
+	      	<button class="errMessCancel">Отмена</button>
+	    </div>
+	    <div id="applymessage">
+	      	<p class="applMess"></p>
+	       	<p class="applAjaxMess"></p>
+	       	<button class="applMessApply" type="submit" form="rightForm">Подтвердить</button><button class="applMessCancel">Отменить</button>
+	    </div>
+	    <div id="accessmessage">
+	       	<p class="accMess"></p>
+	      	<button class="accMessOk">Ok</button>
+	    </div>
+	    <div id="overlay"></div>
     
     <div id="tabs">
         <ul>

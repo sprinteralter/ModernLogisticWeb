@@ -5,25 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EDI NOVUS</title>
 </head>
-<body>
-		<div id="loader">
-	        <img src="resources/images/cloud_loading_256.gif" alt="Loader" width=150px height=150px;/>
-	    </div>
-	    <div id="errormessage">
-	       	<p class="errMess"></p>
-	      	<button class="errMessCancel">Отмена</button>
-	    </div>
-	    <div id="applymessage">
-	      	<p class="applMess"></p>
-	       	<p class="applAjaxMess"></p>
-	       	<button class="applMessApply" type="submit" form="rightForm">Подтвердить</button><button class="applMessCancel">Отменить</button>
-	    </div>
-	    <div id="accessmessage">
-	       	<p class="accMess"></p>
-	      	<button class="accMessOk">Ok</button>
-	    </div>
-	    <div id="overlay"></div>
-	    
+<body>	    
 		<div id="tabs-1">
 			
 			<div class="leftBar">
@@ -101,14 +83,14 @@
 				<textarea class="textR" disabled></textarea>
 				<div id="rightTADataSection">
 					<form id="rightForm" action="PushNovus" method="get">
-						<select name="dataBase" required="required"><option
+						<select name="dataBase1" required="required"><option
 								selected>Alter</option>
 							<option>alter_curent</option>
 							<option>alter_ros</option></select>
-						<input type="text" name="name"
+						<input type="text" name="name1"
 							placeholder="login" required="required" />
 						<input type="password"
-							name="password" placeholder="password" required="required" />
+							name="password1" placeholder="password" required="required" />
 					</form>
 					<div class="pushButtRight">
 	                     <button class="push" type="submit" form="rightForm">Загрузить данные

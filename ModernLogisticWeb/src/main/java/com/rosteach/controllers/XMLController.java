@@ -38,10 +38,8 @@ public class XMLController {
 	/**
 	 * File upload mapping
 	 * */
-	@RequestMapping(value = "/uploadFile", method=RequestMethod.POST)
-	@ResponseBody 
-	public ModelAndView uploadFile(@RequestParam("file[]") MultipartFile [] file){
-		ModelAndView modelAndView = new ModelAndView();
+	@RequestMapping(value = "/uploadFile", method=RequestMethod.POST, produces={"application/text"})
+	public @ResponseBody String uploadFile(@RequestParam("file[]") MultipartFile [] file){
 		String result = "";
 		//checking and saving file block
 		FilesUploader files = new FilesUploader();
@@ -56,18 +54,12 @@ public class XMLController {
 		else {
 			result = "Invalid type of file or files!!";
 		}
-		//redirect to our page with result 
-		RedirectView redirectView = new RedirectView("XML");
-        redirectView.setStatusCode(HttpStatus.FOUND);
-        modelAndView.setView(redirectView);
-        modelAndView.addObject("message", result);
-		return modelAndView;
+		return result;
     }
 	
 	//Tampering Data from xml into Database
-	@RequestMapping(value = "/Push", method = RequestMethod.GET)
-	public ModelAndView insertion(@RequestParam("dataBase") String dataBase,@RequestParam("name") String login,@RequestParam("password") String password) throws JAXBException,SQLException{
-		ModelAndView modelAndView = new ModelAndView();
+	@RequestMapping(value = "/Push", method = RequestMethod.GET,produces={"application/text"})
+	public @ResponseBody String insertion(@RequestParam("dataBase") String dataBase,@RequestParam("name") String login,@RequestParam("password") String password) throws JAXBException,SQLException{
 		String result = "";
 		InsertionDocInvoice insertion = new InsertionDocInvoice();
 		String data="";
@@ -86,11 +78,7 @@ public class XMLController {
 			else{
 				result="Insertion into database was denied, out of date: "+insertion.getDate()+" !";
 			}
-			RedirectView redirectView = new RedirectView("XML");
-			redirectView.setStatusCode(HttpStatus.FOUND);
-			modelAndView.setView(redirectView);
-			modelAndView.addObject("message", result);
-		return modelAndView;
+		return result;
 	}
 	//ajax checking date of the document
 	@RequestMapping(value = "/getDate", method = RequestMethod.GET)
@@ -133,36 +121,29 @@ public class XMLController {
 		
 		
 		@RequestMapping(value = "/PushNovus", method = RequestMethod.GET)
-		public ModelAndView insertionNovus(
-				@RequestParam("dataBase") String dataBase, 
-				@RequestParam("name") String login, 
-				@RequestParam("password") String password) throws JAXBException,SQLException{
+		public@ResponseBody String insertionNovus(
+				@RequestParam("dataBase1") String dataBase, 
+				@RequestParam("name1") String login, 
+				@RequestParam("password1") String password) throws JAXBException,SQLException{
 			
 			String db = dataBase;
 			String user = login;
 			String pass = password;
 			String path="C:/MLW/XMLDOC/user_name";
 			
-			if(db.equals("alter_ros")){
+			/*if(db.equals("alter_ros")){
 				db="jdbc:firebirdsql:192.168.20.85/3050:alter_ros";
 			} else if(dataBase.equals("Alter")){
 				db="jdbc:firebirdsql:192.168.20.17/3050:alter";
 			} else if(dataBase.equals("alter_curent")){
 				db="jdbc:firebirdsql:192.168.20.13/3050:alter_curent";
-			}	
+			}	*/
 			
 			novus.Insert(db, login, password, path);
 			
+			String result = "It's ok";
 			
-			
-			ModelAndView modelAndView = new ModelAndView();
-			String result = "";
-			
-				RedirectView redirectView = new RedirectView("XML");
-				redirectView.setStatusCode(HttpStatus.FOUND);
-				modelAndView.setView(redirectView);
-				modelAndView.addObject("message", result);
-			return modelAndView;
+			return result;
 		}
 		
 }
