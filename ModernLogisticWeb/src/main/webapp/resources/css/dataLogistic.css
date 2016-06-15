@@ -265,6 +265,7 @@ body{
 
 /*footer*/
 #footer{
+	margin:0;
 	height: 5%;
     background: -webkit-linear-gradient(top, whitesmoke, #F0CE0C);
 }

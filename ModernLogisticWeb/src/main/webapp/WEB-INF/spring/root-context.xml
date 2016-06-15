@@ -42,16 +42,7 @@
 		<property name="username" value="SYSDBA"/>
 		<property name="password" value="strongpass"/>
 		<!-- <property name="connectionProperties" value="[encoding=win1251;]"/> -->
-	</bean>
-	
-	<bean id="dataSourceMySql" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/GameManager"/>
-		<property name="username" value="SYSDBA"/>
-		<property name="password" value="strongpass"/>
-		<!-- <property name="connectionProperties" value="[encoding=win1251;]"/> -->
-	</bean>
-	
+	</bean>	
 	
 	<!-- <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" lazy-init="false">
 		<property name="targetObject" ref="dataSource" />

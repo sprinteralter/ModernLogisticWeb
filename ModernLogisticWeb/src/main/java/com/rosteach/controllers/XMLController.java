@@ -8,15 +8,12 @@ import java.sql.SQLException;
 
 import javax.xml.bind.JAXBException;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.rosteach.DAO.InsertionDocInvoice;
 import com.rosteach.upload.FilesUploader;
@@ -32,10 +29,8 @@ public class XMLController {
 	/**
 	 * File upload mapping
 	 * */
-	@RequestMapping(value = "/uploadFile", method=RequestMethod.POST)
-	@ResponseBody 
-	public ModelAndView uploadFile(@RequestParam("file[]") MultipartFile [] file){
-		ModelAndView modelAndView = new ModelAndView();
+	@RequestMapping(value = "/uploadFile", method=RequestMethod.POST, produces={"application/text"})
+	public @ResponseBody String uploadFile(@RequestParam("file[]") MultipartFile [] file){
 		String result = "";
 		//checking and saving file block
 		FilesUploader files = new FilesUploader();
@@ -50,18 +45,12 @@ public class XMLController {
 		else {
 			result = "Invalid type of file or files!!";
 		}
-		//redirect to our page with result 
-		RedirectView redirectView = new RedirectView("XML");
-        redirectView.setStatusCode(HttpStatus.FOUND);
-        modelAndView.setView(redirectView);
-        modelAndView.addObject("message", result);
-		return modelAndView;
+		return result;
     }
 	
 	//Tampering Data from xml into Database
-	@RequestMapping(value = "/Push", method = RequestMethod.GET)
-	public ModelAndView insertion(@RequestParam("dataBase") String dataBase,@RequestParam("name") String login,@RequestParam("password") String password) throws JAXBException,SQLException{
-		ModelAndView modelAndView = new ModelAndView();
+	@RequestMapping(value = "/Push", method = RequestMethod.GET,produces={"application/text"})
+	public @ResponseBody String insertion(@RequestParam("dataBase") String dataBase,@RequestParam("name") String login,@RequestParam("password") String password) throws JAXBException,SQLException{
 		String result = "";
 		InsertionDocInvoice insertion = new InsertionDocInvoice();
 		String data="";
@@ -80,11 +69,7 @@ public class XMLController {
 			else{
 				result="Insertion into database was denied, out of date: "+insertion.getDate()+" !";
 			}
-			RedirectView redirectView = new RedirectView("XML");
-			redirectView.setStatusCode(HttpStatus.FOUND);
-			modelAndView.setView(redirectView);
-			modelAndView.addObject("message", result);
-		return modelAndView;
+		return result;
 	}
 	//ajax checking date of the document
 	@RequestMapping(value = "/getDate", method = RequestMethod.GET)
