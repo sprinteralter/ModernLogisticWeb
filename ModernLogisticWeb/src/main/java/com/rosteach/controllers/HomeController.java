@@ -21,8 +21,8 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	NovusDAO n;
+	//@Autowired
+	//NovusDAO n;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
