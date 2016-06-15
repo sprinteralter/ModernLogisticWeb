@@ -100,7 +100,7 @@
 				<h3>Result console</h3>
 				<textarea class="textR" disabled></textarea>
 				<div id="rightTADataSection">
-					<form id="rightForm" action="Push" method="get">
+					<form id="rightForm" action="PushNovus" method="get">
 						<select name="dataBase" required="required"><option
 								selected>Alter</option>
 							<option>alter_curent</option>
