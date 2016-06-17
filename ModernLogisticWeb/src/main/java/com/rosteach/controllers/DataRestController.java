@@ -19,7 +19,6 @@ public class DataRestController {
 	private ClientsRequestsService requestsService;
 	@RequestMapping(value="/get", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<List<ClientsRequests>> getAllReports(){
-		
 		return new ResponseEntity<List<ClientsRequests>>(requestsService.getAllRequests(),HttpStatus.OK);
 	}
 }

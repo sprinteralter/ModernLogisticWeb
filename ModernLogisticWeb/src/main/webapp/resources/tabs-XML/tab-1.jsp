@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>EDI NOVUS</title>
-</head>
-<body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>VERES</title>
+	</head>
+	<body>
 		<div id="loader">
 	        <img src="resources/images/cloud_loading_256.gif" alt="Loader" width=150px height=150px;/>
 	    </div>
@@ -208,6 +208,8 @@
 				        		$("#accessmessage").hide();
 				        	});
 					    	$(".textR").html("");
+					    	$(".textL").html("");
+					    	$(".input").empty();
 				        });
 				     	 
 				    });

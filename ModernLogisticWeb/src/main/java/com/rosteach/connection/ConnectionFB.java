@@ -1,27 +1,37 @@
 package com.rosteach.connection;
 
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class ConnectionFB {
+	@Autowired
+	@Qualifier("dataSourceAlter")
+	public DataSource datasource;
 	
-	public static void getConnection(){
-		/**
-		 * set Properties for our connection
-		 * */
-		try{
-			Properties prop = new Properties();
-			prop.setProperty("user", "SYSDBA");
-			prop.setProperty("password", "sysadmin");
-			prop.setProperty("encoding", "win1251");
-	
-			/**
-			 * get connection to database method getConnection(url,user,password,encoding)
-			 * */
-			//Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
-			//Connection conn = DriverManager.getConnection("jdbc:firebirdsql:192.168.20.13/3050:alter_curent",prop);
+	public Connection getConnection(){
+		Connection connection = null; 
+			try{
+				connection = datasource.getConnection();
+			}
+			catch(SQLException ex){
+				ex.getStackTrace();
+			}
+		return connection;
+	}
+	public void closeConnection(Connection conn){
+		if(conn==null){
+			return;
 		}
-		catch(Exception ex){
-			
+		try{
+			conn.close();
+		}
+		catch(SQLException ex){
+			ex.getStackTrace();
 		}
 	}
 }

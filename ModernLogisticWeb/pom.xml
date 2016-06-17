@@ -94,6 +94,12 @@
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.7.Final</version>
+        </dependency>
         
         <!-- jsr303 validation -->
         <dependency>
@@ -106,7 +112,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.1.3.Final</version>
         </dependency>
-		
 		<!-- Firebird -->
 		<dependency>
 			<groupId>org.firebirdsql.jdbc</groupId>

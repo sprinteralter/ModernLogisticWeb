@@ -30,7 +30,7 @@ $(document).ready(function(){
         }
         ,             
         function(){
-            $(this).css("background","whitesmoke");
+            $(this).css("background","silver");
         }
     );
     /* end */
@@ -41,8 +41,17 @@ $(document).ready(function(){
         }
         ,             
         function(){
-            $(this).css("background","whitesmoke");
+            $(this).css("background","silver");
         }
     );
     /* end */
+    $(".item:eq(2)").hover(
+        function(){
+            $(this).css("background","#FCD97E");
+        }
+        ,             
+        function(){
+            $(this).css("background","silver");
+        }
+    );
 });

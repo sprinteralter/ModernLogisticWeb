@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class ViewController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ViewController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -27,6 +27,14 @@ public class HomeController {
 		date.getTime();
 		logger.info("Home page downloaded with success!  Server date & time is: {}.",date);	
 		return "home";
+	}
+	
+	@RequestMapping(value = "/dataBinding", method = RequestMethod.GET)
+	public String home() {
+		Date date = new Date();
+		date.getTime();
+		logger.info("Home page downloaded with success!  Server date & time is: {}.",date);	
+		return "DataBinding";
 	}
 	
 }

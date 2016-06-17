@@ -46,7 +46,7 @@
 			<beans:property name="password" value="Rospavlenko5725788" />
 	
 			<beans:property name="acquireIncrement" value="2" />
-			<beans:property name="minPoolSize" value="20" />
+			<beans:property name="minPoolSize" value="1" />
 			<beans:property name="maxPoolSize" value="50" />
 			<beans:property name="maxIdleTime" value="600" />
 		</beans:bean> 
@@ -71,5 +71,45 @@
 		</beans:bean>
 		
 		<tx:annotation-driven transaction-manager="transactionManager" />
+		
+		<!-- JPA2 configuration for FireBird data-->
 	
+		<!-- dataSourceFireBirdAlter -->
+		<!-- <beans:bean id="dataSourceFireBirdAlter" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+			<beans:property name="driverClass" value="org.firebirdsql.jdbc.FBDriver"/>
+			<beans:property name="jdbcUrl" value="jdbc:firebirdsql:192.168.20.17/3050:alter"/>
+			<beans:property name="user" value="SYSDBA"/>
+			<beans:property name="password" value="strongpass"/>
+	
+			<beans:property name="acquireIncrement" value="2" />
+			<beans:property name="minPoolSize" value="1" />
+			<beans:property name="maxPoolSize" value="50" />
+			<beans:property name="maxIdleTime" value="600" />
+		</beans:bean> 
+		
+		Hibernate Session Factory
+		<beans:bean id="entityManagerAlter" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+			<beans:property name="dataSource" ref="dataSourceFireBirdAlter"></beans:property>
+			<beans:property name="jpaVendorAdapter">
+				<beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+			</beans:property>
+			<beans:property name="packagesToScan" value="com.rosteach.entities"></beans:property>
+			<beans:property name="jpaProperties">
+				<beans:props>
+					<beans:prop key="hibernate.dialect">org.hibernate.dialect.FirebirdDialect</beans:prop>
+					<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+					<beans:prop key="hibernate.format_sql">true</beans:prop>
+					<beans:prop key="hibernate.show_sql">true</beans:prop>
+				</beans:props>
+			</beans:property>
+			
+		</beans:bean>
+		
+		Transaction
+		<beans:bean id="transactionManagerAlter" class="org.springframework.orm.jpa.JpaTransactionManager">
+			<beans:property name="entityManagerFactory" ref="entityManagerAlter" />
+		</beans:bean>
+		
+		<tx:annotation-driven transaction-manager="transactionManagerAlter" />
+	 -->
 </beans:beans>

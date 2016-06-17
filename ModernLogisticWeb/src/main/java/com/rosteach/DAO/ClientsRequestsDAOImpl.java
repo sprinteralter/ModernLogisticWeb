@@ -67,5 +67,4 @@ public class ClientsRequestsDAOImpl implements ClientsRequestsDAO{
 		});
 		return requests;
 	}
-
 }

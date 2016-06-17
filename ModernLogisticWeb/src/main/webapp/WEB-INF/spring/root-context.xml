@@ -28,11 +28,18 @@
 	</bean>
 	
 	<!-- JDBC connection pool Bean definition -->
-	<bean id="dataSourceAlter" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.firebirdsql.jdbc.FBDriver"/>
-		<property name="url" value="jdbc:firebirdsql:192.168.20.17/3050:alter"/>
-		<property name="username" value="SYSDBA"/>
+	<bean id="dataSourceAlter" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="org.firebirdsql.jdbc.FBDriver"/>
+		<property name="jdbcUrl" value="jdbc:firebirdsql:192.168.20.17/3050:alter"/>
+		<property name="user" value="SYSDBA"/>
 		<property name="password" value="strongpass"/>
+		
+		<property name="acquireIncrement" value="1" />
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="100" />
+		<property name="idleConnectionTestPeriod" value="100"/>
+		<property name="unreturnedConnectionTimeout" value="100"/>
+		<property name="maxIdleTime" value="600"/>
 		<!-- <property name="connectionProperties" value="[encoding=win1251;]"/> -->
 	</bean>
 	

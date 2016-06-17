@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>VERES</title>
-	</head>
-	<body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EDI NOVUS</title>
+</head>
+<body>
 		<div id="loader">
 	        <img src="resources/images/cloud_loading_256.gif" alt="Loader" width=150px height=150px;/>
 	    </div>
@@ -44,7 +44,7 @@
 				<h3>Choose files</h3>
 				<textarea class="textL" disabled></textarea>
 				<div id="leftTADataSection">
-					<form id="uploadFilesForm" action="uploadFile" method="post" enctype="multipart/form-data">
+					<form id="uploadFilesForm" action="uploadNovus" method="post" enctype="multipart/form-data">
 		     			<input class="files" type="file" name="file[]" min="1" max="9999"
 							multiple accept="/xml" required="required">
 		     			<input class="upload" type="submit" value="Загрузить файлы">
@@ -100,11 +100,11 @@
 				<h3>Result console</h3>
 				<textarea class="textR" disabled></textarea>
 				<div id="rightTADataSection">
-					<form id="rightForm" action="Push" method="get">
-						<select name="dataBase" required="required"><option
-								selected>Alter</option>
-							<option>alter_curent</option>
-							<option>alter_ros</option></select>
+					<form id="rightForm" action="PushNovus" method="get">
+						<select name="dataBase" required="required">
+							<option selected>Sprinter</option>
+							<option>sprinter_curent</option>
+						</select>
 						<input type="text" name="name"
 							placeholder="login" required="required" />
 						<input type="password"

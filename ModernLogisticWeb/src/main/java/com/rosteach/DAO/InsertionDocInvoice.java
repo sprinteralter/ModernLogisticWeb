@@ -83,119 +83,95 @@ public class InsertionDocInvoice {
 	
 	//method for insert input data from xml file(DoclistInvoice entity!)
 	public void insertData(String dataBase,String login, String password) throws JAXBException{ 	
-		
-		/**
-		 * Creation of GetClientID for getClientId
-		 * */
-		GetClientID id = new GetClientID();
-		/**
-		 * Check our directories & files and getData for each
-		 * */
-		if(pack.isDirectory()){
-			String s[] = pack.list();
-			for(int j=0;j<s.length;j++){						
-				/**
-				 * Create an Object with JAXBContext with unmarshalling
-				 * */
-				DocListInvoice document = (DocListInvoice)((JAXBContext.newInstance(DocListInvoice.class)).createUnmarshaller()).unmarshal(new File(path+s[j]));
-				
-					for(int x=0;x<=document.getDocumentInvoice().size()-1;x++){
-						try{
-							double tempSum = 0;
-							double temp = 0;
-							
-							/**
-							 * set Properties for our connection
-							 * */
-							Properties prop = new Properties();
-							prop.setProperty("user", login);
-							prop.setProperty("password", password);
-							prop.setProperty("encoding", "win1251");
-							/**
-							 * get connection to database method getConnection(url,user,password,encoding)
-							 * */
-							Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
-							Connection conn = DriverManager.getConnection(dataBase,prop);
-							System.out.println("Connection for Header execution Start with success!!!");
-							/**
-							 * statement creation
-							 * */
-							Statement stmHeader = conn.createStatement();
-							/**
-							 * SQL query creation (insertion)
-							 * */
-							String sqlH ="EXECUTE PROCEDURE EPRORDERSOUTINV_INSERT('"
-										+document.getDocumentInvoice().get(x).getInvoiceHeader().get(0).getInvoiceDate()+"', "
-										+id.getClientId(path+s[j], x, dataBase, login, password)+", 0, NULL, '"
-										+document.getDocumentInvoice().get(x).getTaxInvoice().get(0).getTaxNumber()+"', NULL, NULL, NULL, NULL, NULL, '"
-										+document.getDocumentInvoice().get(x).getInvoiceHeader().get(0).getInvoiceNumber()+"', NULL, NULL, NULL, NULL, NULL, 0)";
-							/**
-							 * process the result set
-							 * */
-							ResultSet rsHeader = stmHeader.executeQuery(sqlH);
-							String val = "";
-								while(rsHeader.next()) {
-									val = rsHeader.getString("ID");
-								}
-							/**
-							 * Closing our statement and connection!
-							 * */
-							stmHeader.close();
-							conn.close();
-							System.out.println("Connection for Header execution End with success!!! Output ID is: "+val);
-							for(int i=0;i<=document.getDocumentInvoice().get(x).getInvoiceLines().size()-1;i++){
-								try{	
-									
-										Properties proper = new Properties();
-										proper.setProperty("user", login);
-										proper.setProperty("password", password);
-										proper.setProperty("encoding", "win1251");
-										/**
-										 * get connection to database method getConnection(url,user,password)
-										 * */
-										Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
-										Connection connect = DriverManager.getConnection(dataBase,proper);
-										System.out.println("Connection for Details execution Start with success! Input ID is: "+val);
-										/**
-										 * statement creation
-										 * */
-										Statement stmD = connect.createStatement();
-										/**
-										 * SQL query creation (insertion)
-										 * */
-										for(int z=0;z<=document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().size()-1;z++){
-											String sqlD ="EXECUTE PROCEDURE EPRORDERSOUTINVDET_INSERT_CODE("+val+", "
-													+document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getEAN()+", "+"Null"+", "
-													+document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getInvoiceQuantity()+", Null)";
-											stmD.executeUpdate(sqlD);
-											
-											temp = Double.parseDouble(document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getNetAmount());
-											System.out.println(temp);
-											tempSum+=temp;
-										}
-										/**
-										 * Closing our statement and connection!
-										 * */
-										stmD.close();
-										connect.close();
-										System.out.println("Connection for Details execution End with success!");
+		try{
+			/**
+			 * set Properties for our connection
+			 * */
+			Properties prop = new Properties();
+			prop.setProperty("user", login);
+			prop.setProperty("password", password);
+			prop.setProperty("encoding", "win1251");
+			/**
+			 * get connection to database method getConnection(url,user,password,encoding)
+			 * */
+			Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
+			Connection conn= DriverManager.getConnection(dataBase,prop);
+			System.out.println("Connection for Header execution Start with success!!!");
+			/**
+			 * statement creation
+			 * */
+			Statement stm = conn.createStatement();
+			/**
+			 * Creation of GetClientID for getClientId
+			 * */
+			GetClientID id = new GetClientID();
+			/**
+			 * Check our directories & files and getData for each
+			 * */
+			if(pack.isDirectory()){
+				String s[] = pack.list();
+				for(int j=0;j<s.length;j++){						
+					/**
+					 * Create an Object with JAXBContext with unmarshalling
+					 * */
+					DocListInvoice document = (DocListInvoice)((JAXBContext.newInstance(DocListInvoice.class)).createUnmarshaller()).unmarshal(new File(path,s[j]));
+					
+						for(int x=0;x<=document.getDocumentInvoice().size()-1;x++){
+								double tempSum = 0;
+								double temp = 0;
+								
+								
+								/**
+								 * SQL query creation (insertion)
+								 * */
+								String sqlH ="EXECUTE PROCEDURE EPRORDERSOUTINV_INSERT('"
+											+document.getDocumentInvoice().get(x).getInvoiceHeader().get(0).getInvoiceDate()+"', "
+											+id.getClientId(path+s[j], x, stm)+", 0, NULL, '"
+											+document.getDocumentInvoice().get(x).getTaxInvoice().get(0).getTaxNumber()+"', NULL, NULL, NULL, NULL, NULL, '"
+											+document.getDocumentInvoice().get(x).getInvoiceHeader().get(0).getInvoiceNumber()+"', NULL, NULL, NULL, NULL, NULL, 0)";
+								/**
+								 * process the result set
+								 * */
+								ResultSet rsHeader = stm.executeQuery(sqlH);
+								String val = "";
+									while(rsHeader.next()) {
+										val = rsHeader.getString("ID");
 									}
-								catch(Exception e){
-									e.getMessage();
-									}
+								/**
+								 * Closing our statement and connection!
+								 * */
+								
+								System.out.println("Connection for Header execution End with success!!! Output ID is: "+val);
+								for(int i=0;i<=document.getDocumentInvoice().get(x).getInvoiceLines().size()-1;i++){
+											/**
+											 * SQL query creation (insertion)
+											 * */
+											for(int z=0;z<=document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().size()-1;z++){
+												String sqlD ="EXECUTE PROCEDURE EPRORDERSOUTINVDET_INSERT_CODE("+val+", "
+														+document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getEAN()+", "+"Null"+", "
+														+document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getInvoiceQuantity()+", Null)";
+												stm.executeUpdate(sqlD);
+												
+												temp = Double.parseDouble(document.getDocumentInvoice().get(x).getInvoiceLines().get(i).getLines().get(z).getNetAmount());
+												System.out.println(temp);
+												tempSum+=temp;
+											}
+	
 								}
-							System.out.println("");
-							System.out.println("______________Total report for "+s[j]+"______________");
-							System.out.println("Header id: "+val);
-							System.out.println("Details inserted: "+document.getDocumentInvoice().get(x).getInvoiceLines().size());
-							System.out.println("totalTempSum: "+tempSum);
-							System.out.println("");
-						}
-						catch(Exception e){
-							System.out.println(e.getMessage());
+								System.out.println("");
+								System.out.println("______________Total report for "+s[j]+"______________");
+								System.out.println("Header id: "+val);
+								System.out.println("Details inserted: "+document.getDocumentInvoice().get(x).getInvoiceLines().size());
+								System.out.println("totalTempSum: "+tempSum);
+								System.out.println("");
 						}
 					}
 				}
+				stm.close();
+				conn.close();		
 			}
-		}
+			catch(Exception ex){
+				ex.getStackTrace();
+			}
+	}
 }

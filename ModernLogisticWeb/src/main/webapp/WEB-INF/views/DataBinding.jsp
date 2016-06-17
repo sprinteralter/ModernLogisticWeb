@@ -2,23 +2,19 @@
     pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>XML</title>
+	<title>DataBinding</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-xml.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/databinding.css" />
 	<!-- JS -->
 	<script type="text/javascript" src="resources/js/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery-ui.js"></script>
-	<script type="text/javascript" src="resources/js/xml.js"></script>
 	<script type="text/javascript" src="resources/jquery_plugins/jqueryForm.js"></script>
 	<script>
         $(function() {
             $( "#tabs" ).tabs({
             	beforeLoad: function( event, ui ) {
-            		//clear all tabs except current
-            		$(ui.panel).siblings('.ui-tabs-panel').empty();
-            		//on error ajax output
-            		ui.jqXHR.fail(function() {
+                    ui.jqXHR.fail(function() {
                       ui.panel.html(
                         "Couldn't load this tab. We'll try to fix this as soon as possible. " +
                         "If this wouldn't be a demo." );
@@ -46,8 +42,7 @@
     
     <div id="tabs">
         <ul>
-            <li><a href="resources/tabs-XML/tab-1.jsp">Veres</a></li>
-            <li><a href="resources/tabs-XML/tab-2.jsp">EDI Novus</a></li>
+            <li><a href="resources/tabs-DataBinding/tab-1.jsp">Заявки от клиентов</a></li>
         </ul>
     </div>
     <div id="delegation">
@@ -55,7 +50,7 @@
      	<div class="delegateUploadButtLeft"></div>
     </div>
     <div id="footer">
-        <h3>XML converting</h3>
+        <h3>data binding</h3>
     </div>
 </body>
 </html>
