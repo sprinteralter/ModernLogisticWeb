@@ -4,13 +4,11 @@ package com.rosteach.DAO.novus;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TransactionRequiredException;
 import javax.transaction.Transactional;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Repository;
 import com.rosteach.xml.novus.DESADV;
 import com.rosteach.xml.novus.DESADV.HEAD.PACKINGSEQUENCE.POSITION;
@@ -18,7 +16,6 @@ import com.rosteach.xml.novus.DESADV.HEAD.PACKINGSEQUENCE.POSITION;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
@@ -35,57 +32,45 @@ public class NovusDAOImpl implements NovusDAO {
     
     
 	@Override
-	public String test() throws SQLException{
+	public String test(){
 		
 		// Configure connection pool
 		Map properties = new HashMap();
 		properties.put("javax.persistence.jdbc.user", "SYSDBA");
 		properties.put("javax.persistence.jdbc.password","sysadmin");
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("craft_curent", properties); //sprinter
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("connection", properties); //sprinter
 	    EntityManager em =  emf.createEntityManager();
-		
-	    
-	    //String s = "";
-	    Query q = em.createNativeQuery("select * from SPRORDERSOUTINV (1,'16.05.2016',Null,0,Null,0)");
-		List<Object> responce = (List<Object>) q.getResultList();
-		for(Object s : responce){
-			System.out.println(s.toString());
-		}
-		return String.valueOf(responce.size()) ;
+		//String s = "";
+	    Query q = em.createNativeQuery("SELECT id FROM SPRORDERSOUTINV (621,'09.05.2016','09.05.2016',0,Null,0) where OUTCOMEINVOICEIDSSET = 5991581");
+		String s = q.getSingleResult().toString();
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA++++++++++++++++++++++++++++++++++++++++++++++++++"+s);
+		return s;
 						
 	}
 	
 	
 	@Override
-	public String Insert(String database, String name, String password, String path) throws SQLException{
+	public int Insert(String database, String name, String password, String path){
 		
 		
 		Map properties = new HashMap();
+		//if(database.contains("curent")) //УБРАТЬ ПРИ РАБОТЕ С РЕАЛЬНО БАЗОЙ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		properties.put("javax.persistence.jdbc.url", "jdbc:firebirdsql:localhost/3050:sprinter_curent");
 		properties.put("javax.persistence.jdbc.user", "SYSDBA");
 		properties.put("javax.persistence.jdbc.password", "sysadmin");
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("craft_curent", properties); 
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("connection", properties); 
 	    EntityManager em =  emf.createEntityManager();
 		
-	    String fileName = "";
-		String result = "";
-	
-	    
+	    DESADV novusXML = new DESADV();
 	    JAXBContext jc;
 		Unmarshaller u;
-		DESADV novusXML = new DESADV();
 		File[] files = new File(path).listFiles();
-		POSITION tovar = null;
 		
-		em.getTransaction().begin();
 		
-		//Перебираем все файлы в каталоге <String path>
 		for (File f : files){
-			fileName = f.getName();
 			
-			try{	
 			try {
 				jc = JAXBContext.newInstance(DESADV.class);
 				u = jc.createUnmarshaller();
@@ -94,7 +79,7 @@ public class NovusDAOImpl implements NovusDAO {
 				e.printStackTrace();
 				}
 			
-			//создаем заявку
+			em.getTransaction().begin(); 
 			Query q = em.createNativeQuery("EXECUTE PROCEDURE EPRORDERSOUTINV_INSERT('"
 										+novusXML.getDATE()+"', '"
 										+"11426" +"',"	//clientid
@@ -108,52 +93,100 @@ public class NovusDAOImpl implements NovusDAO {
 												+ "NULL, '"						//comment1
 										+novusXML.getORDERNUMBER()+"', "		//comment2
 												+ "NULL, NULL, NULL, NULL, NULL, 0)"); 
-			//получаем ответ от процедуры
+			//q.executeUpdate();
 			int id = (Integer)q.getSingleResult();
+			em.getTransaction().commit();
+			//int id = (Integer)q.getSingleResult();
+			System.out.print(id+"IIIIIIIIIIIIIIIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 			
-			//создаем массив позиций товаров в заявке
+			
+			
 			List<POSITION> positions = novusXML.getHEAD().getPACKINGSEQUENCE().getPOSITION();
 			
-			//добавляем каждую позицию из масива в заявку
 			for (POSITION p : positions){
-				try{
-				tovar = p;
 				
-				//АйДи продукта по штрихкоду
 				Query goodsID = em.createNativeQuery("select goodsid from prodlink where  prodcode = '"+p.getPRODUCT()+"'"); //clientid = 11426 and
-				List<Integer> codes = goodsID.getResultList();
-				int gid = codes.get(0);	
 				
-				//еденицу измерения по АйДи продукта
+				List<Integer> codes = goodsID.getResultList();
+				int gid = codes.get(0);
+				
+				for (int i : codes){
+					System.out.println(codes.size() + " CODES SIZE-- " +i+" GID = "+gid);
+					
+				}
+								
 				Query mID = em.createNativeQuery("select measureid from goods where id ="+gid);
 				short mesID = (Short) mID.getResultList().get(0);
 				
+				System.out.println(p.getPRODUCT()+" PRODUCT SHTRIHHHHHHHHHHHHHHHH");
+				System.out.println(gid + " GGGGGGGGGGGGGGGGGGGGGGGIIIIIIDDDD");
+				System.out.println(mesID + " MES ID");
+				//Query qp = em.createNativeQuery("EXECUTE PROCEDURE EPRORDERSOUTINVDET_INSERT("+id+","+gid+","+mesID+","+p.getORDEREDQUANTITY()+",null"+")");
+				//qp.executeUpdate();
 				
-			 Query qp = em.createNativeQuery("EXECUTE PROCEDURE EPRORDERSOUTINVDET_INSERT("+id+","+gid+","+mesID+",'"+p.getORDEREDQUANTITY()+"',null"+")");
-				qp.executeUpdate();
-				}catch(IndexOutOfBoundsException ind){
-					result = result + "НЕ НАЙДЕН (ШТРИХКОД = "+tovar.getPRODUCT()+") ТОВАРА "+tovar.getDESCRIPTION()+" В (ФАЙЛЕ= "+fileName+") \n";
-					System.out.println(result+") --------------------------------------------------------------------------------------------");				
-					em.getTransaction().rollback();
-					em.getTransaction().begin();
-					break;
-					
-				}
 				
-				}
-					
 			
-			}
-				catch(TransactionRequiredException e){
+				
+				Properties proper = new Properties();
+				proper.setProperty("user", "SYSDBA");
+				proper.setProperty("password", "sysadmin");
+				proper.setProperty("encoding", "win1251");
+				/**
+				 * get connection to database method getConnection(url,user,password)
+				 * */
+				String dataBase = "jdbc:firebirdsql:localhost/3050:sprinter_curent";
+				try {
+					Class.forName("org.firebirdsql.jdbc.FBDriver").newInstance();
+					Connection connect = DriverManager.getConnection(dataBase,proper);
+					String quer = "EXECUTE PROCEDURE EPRORDERSOUTINVDET_INSERT("+id+","+gid+","+mesID+","+p.getORDEREDQUANTITY()+",null"+")";
+					Statement stmD = connect.createStatement();
+					stmD.executeUpdate(quer);
+					stmD.close();
+					connect.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
+				
 			}
-		em.getTransaction().commit();
-		//FileUtils.cleanDirectory(new File(path));
+			
+			
+			//em.getTransaction().commit();
+			
+			//System.out.println("--------------------------------DESCRIPTION-----------------------------------------");
+			//System.out.println(novusXML.getHEAD().getPACKINGSEQUENCE().getPOSITION().get(0).getDESCRIPTION());
+		}
 		
+		//File file = new File(path);
+		/*
+		if(file.isDirectory()){
+			DESADV[] documents = 
+			
+			String[] s= file.list();
+			
+			for(int i=0;i<s.length;i++){
+				
+				
+				
+			
+				try {
+					jc = JAXBContext.newInstance(DESADV.class);
+					u = jc.createUnmarshaller();
+					novusXML = (DESADV) u.unmarshal(new File(path,s[i]));
 					
-		return result;
+				} catch (JAXBException e) {
+				
+					e.printStackTrace();
+					}
+				
+				}
+		}
+			*/
+			
+		
+			
+		return 0;
 
 	}
      

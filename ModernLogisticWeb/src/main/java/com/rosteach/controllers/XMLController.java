@@ -121,10 +121,10 @@ public class XMLController {
 		
 		
 		@RequestMapping(value = "/PushNovus", method = RequestMethod.GET)
-		public ModelAndView insertionNovus(
-				@RequestParam("dataBase") String dataBase, 
-				@RequestParam("name") String login, 
-				@RequestParam("password") String password) throws JAXBException,SQLException{
+		public@ResponseBody String insertionNovus(
+				@RequestParam("dataBase1") String dataBase, 
+				@RequestParam("name1") String login, 
+				@RequestParam("password1") String password) throws JAXBException,SQLException{
 			
 			String db = dataBase;
 			String user = login;
@@ -139,25 +139,9 @@ public class XMLController {
 				db="jdbc:firebirdsql:192.168.20.13/3050:alter_curent";
 			}	*/
 			
-		 	
+			novus.Insert(db, login, password, path);
 			
-			String result = novus.Insert(db, login, password, path);
-			ModelAndView mv = new ModelAndView();
-			RedirectView redirectView = new RedirectView("XML");
-	        redirectView.setStatusCode(HttpStatus.FOUND);
-	        mv.setView(redirectView);
-			mv.addObject("message", result);
-			
-			return mv;
-		}
-		
-		@RequestMapping(value = "/test", method = RequestMethod.GET)
-		public String test(
-				) throws JAXBException,SQLException{
-		
-			
-			
-			String result = novus.test();
+			String result = "It's ok";
 			
 			return result;
 		}
