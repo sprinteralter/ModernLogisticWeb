@@ -15,6 +15,9 @@ import com.rosteach.entities.ClientRequest;
 
 @Repository
 public class BindingDataDAOImpl implements BindingDataDAO{
+
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	
 	public EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
@@ -32,8 +35,6 @@ public class BindingDataDAOImpl implements BindingDataDAO{
 		this.entityManager = entityManager;
 	}
 
-	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
 	
 	@Override
 	public List<ClientRequest> getClientsRequests(String database, String username, String password,
@@ -66,7 +67,22 @@ public class BindingDataDAOImpl implements BindingDataDAO{
 		 * Commit transaction
 		 * */
 		entityManager.getTransaction().commit();
+		entityManager.close();
 		return result;
+	}
+	
+	@Override
+	public HashMap<Integer,Object> getClientsRequestsDetails(List<ClientRequest> clientRequest) {
+		HashMap<Integer,Object> map = new HashMap<Integer,Object>();
+		for(ClientRequest each: clientRequest){
+			Query query = entityManager.createNativeQuery("");
+			@SuppressWarnings("unchecked")
+			List<Object> queryResult = (List<Object>) query.getResultList();
+			for(Object obj: queryResult){
+				map.put(each.getId(), obj);
+			}
+		}
+		return map;
 	}
 
 	@Override
@@ -90,20 +106,20 @@ public class BindingDataDAOImpl implements BindingDataDAO{
 		Query query = entityManager.createNativeQuery("EXECUTE PROCEDURE EPRORDERSOUTINV_INSERT('"+
 															clientsRequests.get(0).getDocdate()+"',"+
 															clientsRequests.get(0).getClientid()+","+
-															clientsRequests.get(0).getStoreid()+",'"+
-															clientsRequests.get(0).getOutcomeinvoiceidsset()+"','"+
+															0+",'"+
+															null+"','"+
 															clientsRequests.get(0).getComment()+"',"+
-															clientsRequests.get(0).getBeepreslinkid()+","+
 															null+","+
-															clientsRequests.get(0).getTermdate()+","+
-															clientsRequests.get(0).getPaytypeid()+","+
+															null+","+
+															null+","+
+															null+","+
 															clientsRequests.get(0).getComment1()+",'"+
 															clientsRequests.get(0).getComment2()+"',"+
-															clientsRequests.get(0).getPricetypeid()+","+
-															clientsRequests.get(0).getAgentid()+","+
 															null+","+
-															clientsRequests.get(0).getDiscount()+","+
-															clientsRequests.get(0).getSpecdiscount()+","+
+															null+","+
+															null+","+
+															null+","+
+															null+","+
 															clientsRequests.get(0).getOk_passed()+");"
 															);
 		
@@ -117,6 +133,12 @@ public class BindingDataDAOImpl implements BindingDataDAO{
 		 * */
 		entityManager.getTransaction().commit();
 		return result;
+	}
+
+	@Override
+	public boolean setClientsRequestsDetails(List<Object> details) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

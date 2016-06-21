@@ -103,22 +103,22 @@ public class ExcelReestrForaVeres extends AbstractExcelView{
 		excelHeaderSecondRow.createCell(0).setCellValue("#");
 		excelHeaderSecondRow.getCell(0).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(1).setCellValue("Рег.номер");
+		excelHeaderSecondRow.createCell(1).setCellValue("Р РµРі. РЅРѕРјРµСЂ");
 		excelHeaderSecondRow.getCell(1).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(2).setCellValue("Имя клиента");
+		excelHeaderSecondRow.createCell(2).setCellValue("РРјСЏ РєР»РёРµРЅС‚Р°");
 		excelHeaderSecondRow.getCell(2).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(3).setCellValue("Адресс клиента");
+		excelHeaderSecondRow.createCell(3).setCellValue("РђРґСЂРµСЃ РґРѕСЃС‚Р°РІРєРё");
 		excelHeaderSecondRow.getCell(3).setCellStyle(styleHeader);
 	
-		excelHeaderSecondRow.createCell(4).setCellValue("Комментарий");
+		excelHeaderSecondRow.createCell(4).setCellValue("РљРѕРјРјРµРЅС‚Р°СЂРёР№");
 		excelHeaderSecondRow.getCell(4).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(5).setCellValue("Основание");
+		excelHeaderSecondRow.createCell(5).setCellValue("РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№");
 		excelHeaderSecondRow.getCell(5).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(6).setCellValue("Сумма");
+		excelHeaderSecondRow.createCell(6).setCellValue("РЎСѓРјРјР°");
 		excelHeaderSecondRow.getCell(6).setCellStyle(styleHeader);
 	}
 	public void setExcelHeader(HSSFSheet excelSheet, HttpServletRequest request, int size){
@@ -126,8 +126,8 @@ public class ExcelReestrForaVeres extends AbstractExcelView{
 		HSSFRow excelHeaderFirstRow = excelSheet.createRow(1);	
 		String summ = "SUM(G4:G"+size+")";
 		
-		excelHeaderFirstRow.createCell(1).setCellValue("Начало периода: "+request.getParameter("startDate"));
-		excelHeaderFirstRow.createCell(3).setCellValue("Конец периода: "+request.getParameter("endDate"));
+		excelHeaderFirstRow.createCell(1).setCellValue("Р”Р°С‚Р° СЃ: "+request.getParameter("startDate"));
+		excelHeaderFirstRow.createCell(3).setCellValue("Р”Р°С‚Р° РїРѕ: "+request.getParameter("endDate"));
 		
 		excelHeaderFirstRow.createCell(6).setCellType(HSSFCell.CELL_TYPE_FORMULA);
 		excelHeaderFirstRow.getCell(6).setCellFormula(summ);
@@ -135,6 +135,6 @@ public class ExcelReestrForaVeres extends AbstractExcelView{
 	public void setExcelHeaderName(HSSFSheet excelSheet, HttpServletRequest request){
 		HSSFRow excelHeaderFirstRow = excelSheet.createRow(0);
 		
-		excelHeaderFirstRow.createCell(3).setCellValue("Фора Верес");
+		excelHeaderFirstRow.createCell(3).setCellValue("Р¤РћР Рђ Р’Р•Р Р•РЎ");
 	}
 }

@@ -41,7 +41,8 @@
 		
 		<!-- JUnit test -->
 		<junit.version>4.11</junit.version>
-		
+		<!-- Encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
 	<dependencies>
