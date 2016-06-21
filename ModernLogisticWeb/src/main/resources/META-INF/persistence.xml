@@ -13,6 +13,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="encoding" value="Cp1251" />
+            
         </properties>
     </persistence-unit>
 </persistence>
