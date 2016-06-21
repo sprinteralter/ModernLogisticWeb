@@ -92,13 +92,13 @@ public class ExcelSverkaPoVigruzke extends AbstractExcelView{
 		excelHeaderSecondRow.createCell(0).setCellValue("#");
 		excelHeaderSecondRow.getCell(0).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(1).setCellValue("Имя клиента");
+		excelHeaderSecondRow.createCell(1).setCellValue("РРјСЏ РєР»РёРµРЅС‚Р°");
 		excelHeaderSecondRow.getCell(1).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(2).setCellValue("Заказано");
+		excelHeaderSecondRow.createCell(2).setCellValue("Р—Р°РєР°Р·Р°РЅРѕ");
 		excelHeaderSecondRow.getCell(2).setCellStyle(styleHeader);
 		
-		excelHeaderSecondRow.createCell(3).setCellValue("Отгружено");
+		excelHeaderSecondRow.createCell(3).setCellValue("РћС‚РіСЂСѓР¶РµРЅРѕ");
 		excelHeaderSecondRow.getCell(3).setCellStyle(styleHeader);
 	}
 	public void setExcelHeader(HSSFSheet excelSheet, HttpServletRequest request, int size){
@@ -107,8 +107,8 @@ public class ExcelSverkaPoVigruzke extends AbstractExcelView{
 		String orderSum = "SUM(C4:C"+size+")";
 		String shipmentSum = "SUM(D4:D"+size+")";
 		
-		//excelHeaderFirstRow.createCell(0).setCellValue("Начало периода: "+request.getParameter("startDate"));
-		//excelHeaderFirstRow.createCell(2).setCellValue("Конец периода: "+request.getParameter("endDate"));
+		//excelHeaderFirstRow.createCell(0).setCellValue("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+request.getParameter("startDate"));
+		//excelHeaderFirstRow.createCell(2).setCellValue("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+request.getParameter("endDate"));
 		
 		excelHeaderFirstRow.createCell(2).setCellType(HSSFCell.CELL_TYPE_FORMULA);
 		excelHeaderFirstRow.getCell(2).setCellFormula(orderSum);
@@ -120,7 +120,7 @@ public class ExcelSverkaPoVigruzke extends AbstractExcelView{
 		HSSFRow excelHeaderFirstRow = excelSheet.createRow(0);
 		CellStyle style = workbook.createCellStyle();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
-		excelHeaderFirstRow.createCell(1).setCellValue("Сверка по выгрузке(ящ)");
+		excelHeaderFirstRow.createCell(1).setCellValue("РћС‚С‡РµС‚-СЃРІРµСЂРєР° РїРѕ РІС‹РіСЂСѓР·РєРµ(СЏС‰)");
 		excelHeaderFirstRow.getCell(1).setCellStyle(style);
 	}
 

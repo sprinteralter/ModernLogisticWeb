@@ -43,13 +43,18 @@ public class DataLogisticController {
 		return new ResponseEntity<List<Report>>(reportService.getAllReports(requestValue),HttpStatus.OK);
 	}
 	@RequestMapping(value = "/databind", method=RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<ClientRequest>> bindData(@RequestParam("inputDataBase") String inputdata, @RequestParam("name") String name,@RequestParam("password") String password, @RequestParam("selectFrom") String databasefrom,@RequestParam("selectIn") String databasein){
+	public @ResponseBody String bindData(@RequestParam("inputDataBase") String inputdata,
+			@RequestParam("name") String name,
+			@RequestParam("password") String password,
+			@RequestParam("selectFrom") String databasefrom,
+			@RequestParam("selectIn") String databasein){
 		String result = inputdata+","+name+","+password+","+databasefrom+","+databasein;
 		System.out.println("--------------------------------------------------------"+result);
-		List<ClientRequest> inputData = dataService.getRequests("alter", name, password, "");
+		//List<ClientRequest> inputData = dataService.getRequests("alter", name, password, "");
 		
-		dataService.setClientsRequests(inputData, "sprinter_curent", name, "sysadmin", "");
+		//dataService.setClientsRequests(inputData, "sprinter_curent", name, "sysadmin", "");
 		
-		return new ResponseEntity<List<ClientRequest>>(dataService.getRequests("alter", name, password, ""),HttpStatus.OK);
+		return result;
+				//new ResponseEntity<List<ClientRequest>>(dataService.getRequests("alter", name, password, ""),HttpStatus.OK);ResponseEntity<List<ClientRequest>>
     }
 }

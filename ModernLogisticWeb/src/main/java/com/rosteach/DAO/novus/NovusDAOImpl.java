@@ -9,11 +9,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Repository;
 import com.rosteach.xml.novus.DESADV;
 import com.rosteach.xml.novus.DESADV.HEAD.PACKINGSEQUENCE.POSITION;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -119,7 +121,11 @@ public class NovusDAOImpl implements NovusDAO {
 
 			}
 		em.getTransaction().commit();
-
+		try {
+			FileUtils.cleanDirectory(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}   
 }
